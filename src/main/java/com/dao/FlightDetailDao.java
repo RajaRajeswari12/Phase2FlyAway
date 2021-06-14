@@ -1,10 +1,14 @@
 package com.dao;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+
+
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import org.hibernate.query.Query;
 
 import com.model.Airline;
 import com.model.FlightAvailabilityByDate;
@@ -102,11 +106,19 @@ public class FlightDetailDao {
 					"delete from FlightAvailabilityByDate fad where fad.flightdetail.flightId in (:flightId)";				  
 			session.createQuery(deleteFlightAvailablebyDate).setParameter("flightId", flightId).executeUpdate();
 
-			String deleteFlightRunningDay = "delete from FlightRunningDays frd  where frd.flightDetail.flightId in (:flightId)";				  
-
-			session.createQuery(deleteFlightRunningDay).setParameter("flightId", flightId).executeUpdate();
+			
+			String getFlightScheduleIdsQuery = "select fd.flightRunningDays.flightScheduleId from FlightDetail fd where fd.flightId in (:flightId)";
+			List<String> flightScheduleIds = session.createQuery(getFlightScheduleIdsQuery).setParameter("flightId", flightId).list();
+			 
+			 
 			String deleteFlightDetail = "delete from FlightDetail fd where fd.flightId in (:flightId)";
 			session.createQuery(deleteFlightDetail).setParameter("flightId", flightId).executeUpdate();
+
+			  String deleteFlightRunningDay =
+			  "delete from FlightRunningDays frd  where frd.flightScheduleId in (:flightScheduleIds)"
+			  ;
+			  
+			  session.createQuery(deleteFlightRunningDay).setParameter("flightScheduleIds",  flightScheduleIds).executeUpdate();
 			transaction.commit();
 			session.close();
 		}
@@ -145,22 +157,15 @@ public class FlightDetailDao {
 	
 
 	
-	public FlightDetail getFlightDetail(int flightId) {
-		FlightDetail flightDetail = new FlightDetail();
-		session = HibernateUtil.getSessionFactory().openSession();
-		try 
-		{
-			transaction = session.beginTransaction();
-			flightDetail = session.get(FlightDetail.class,flightId);
-			transaction.commit();
-			session.close();
-		}
-		catch(Exception e)
-		{
-			exceptionBlock(e);
-		}
-		return flightDetail;
-	}
+	/*
+	 * public FlightDetail getFlightDetail(int flightId) { FlightDetail flightDetail
+	 * = new FlightDetail(); session =
+	 * HibernateUtil.getSessionFactory().openSession(); try { transaction =
+	 * session.beginTransaction(); flightDetail =
+	 * session.get(FlightDetail.class,flightId); transaction.commit();
+	 * session.close(); } catch(Exception e) { exceptionBlock(e); } return
+	 * flightDetail; }
+	 */
 	
 	public void updateFlightDetail(FlightDetail flightDetail) {
 		session = HibernateUtil.getSessionFactory().openSession();
@@ -183,4 +188,49 @@ public class FlightDetailDao {
 		e.printStackTrace();
 	}
 
+	
+	public void populateFlightDetail(int dayCount,LocalDate startDate) {
+		session = HibernateUtil.getSessionFactory().openSession();
+		try {
+			transaction = session.beginTransaction();
+			/* Query query = */ session.createSQLQuery(
+				    "CALL populateFlightDetailByDate(:dayCount,:startDate);")
+				    .addEntity(FlightAvailabilityByDate.class)
+				    .setParameter("dayCount", dayCount)
+				    .setParameter("startDate",startDate).executeUpdate();
+				            
+//				List result = query.executeUpdate();
+				/*
+				 * for(int i=0; i<result.size(); i++){ FlightAvailabilityByDate
+				 * flightAvailabilityByDate = (FlightAvailabilityByDate)result.get(i);
+				 * System.out.println(flightAvailabilityByDate); }
+				 */
+//			session.update(flightDetail);
+			transaction.commit();
+			session.close();
+		}
+		catch(Exception e) {
+			exceptionBlock(e);
+		}
+	}
+	
+	
+	public List<FlightAvailabilityByDate> getFlightAvailabilityByDate(){
+		List<FlightAvailabilityByDate> flightAvailabilityByDateList = new ArrayList<FlightAvailabilityByDate>();
+		session = HibernateUtil.getSessionFactory().openSession();
+		try 
+		{
+			transaction = session.beginTransaction();
+			flightAvailabilityByDateList = session.createQuery("from FlightAvailabilityByDate").getResultList();
+			System.out.println(flightAvailabilityByDateList.size());
+			transaction.commit();
+			session.close();
+		}
+		catch(Exception e)
+		{
+			exceptionBlock(e);
+		}
+
+		return flightAvailabilityByDateList;
+	}
 }

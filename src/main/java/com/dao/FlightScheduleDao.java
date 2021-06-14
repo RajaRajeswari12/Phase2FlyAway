@@ -61,23 +61,7 @@ public class FlightScheduleDao {
 	 * flightRunningDaysList; }
 	 */
 	
-	public List<FlightAvailabilityByDate> getFlightAvailabilityByDate(){
-		List<FlightAvailabilityByDate> flightAvailabilityByDateList = new ArrayList<>();
-		session = HibernateUtil.getSessionFactory().openSession();
-		try 
-		{
-			transaction = session.beginTransaction();
-			flightAvailabilityByDateList = session.createQuery("from FlightAvailabilityByDate").list();
-			transaction.commit();
-			session.close();
-		}
-		catch(Exception e)
-		{
-			exceptionBlock(e);
-		}
 
-		return flightAvailabilityByDateList;
-	}
 	
 	/*
 	 * public FlightRunningDays getFlightRunningDayById(int flightId){

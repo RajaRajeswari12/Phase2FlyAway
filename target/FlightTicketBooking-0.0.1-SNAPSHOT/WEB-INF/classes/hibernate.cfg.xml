@@ -15,10 +15,11 @@
     <property name="current_session_context_class">thread</property>
     <property name="show_sql">true</property>
     <property name="format_sql">true</property>
-    <property name="hbm2ddl.auto">create</property>
+    <property name="hbm2ddl.auto">update</property>
+    <mapping class="com.model.FlightRunningDays" />
     <mapping class="com.model.TripSourceDestination" />
         <mapping class="com.model.Airline" />
-        <mapping class="com.model.FlightRunningDays" />
+        
             <mapping class="com.model.FlightDetail" />
               <mapping class="com.model.FlightAvailabilityByDate" />
                 

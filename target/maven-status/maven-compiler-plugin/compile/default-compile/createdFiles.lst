@@ -13,6 +13,7 @@ com\model\Airline.class
 com\model\FlightRunningDays.class
 com\controller\FlightDetailServlet.class
 com\model\FlightDetail.class
+com\controller\testservlet.class
 com\dao\FlightDetailDao.class
 com\dao\AirlineDao.class
 com\model\FlightTicket.class

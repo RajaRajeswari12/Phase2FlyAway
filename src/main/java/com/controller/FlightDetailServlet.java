@@ -3,6 +3,7 @@ package com.controller;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Time;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -18,6 +19,7 @@ import javax.servlet.http.HttpSession;
 import com.dao.FlightDetailDao;
 import com.dao.FlightScheduleDao;
 import com.model.Airline;
+import com.model.FlightAvailabilityByDate;
 import com.model.FlightDetail;
 import com.model.FlightRunningDays;
 import com.model.TripSourceDestination;
@@ -73,10 +75,25 @@ public class FlightDetailServlet extends HttpServlet {
 		case "/updateFlightDtl":
 			updateFlightDetail(request,response);		
 			break;
+		case "/populateFlightDtl":
+			populateFlightDetail(request,response);
+			break;
 		}
 	}
 
 	
+	private void populateFlightDetail(HttpServletRequest request, HttpServletResponse response) throws IOException {
+		session = request.getSession();
+		Integer dayCount = Integer.valueOf(request.getParameter("DayCount"));
+		LocalDate startDate = LocalDate.parse(request.getParameter("populateStartDate"));
+		flightDetailDAO.populateFlightDetail(dayCount, startDate);
+		List<FlightAvailabilityByDate> flightAvailabilityByDateList = flightDetailDAO.getFlightAvailabilityByDate();
+		session.setAttribute("flightAvailabilityByDateList", flightAvailabilityByDateList);
+		response.sendRedirect(request.getContextPath()+"/ListFlightTicketsAvailability.jsp");
+		
+	}
+
+
 	private void addNewFlightDetail(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		session = request.getSession();
 		FlightDetail fd = (FlightDetail) session.getAttribute("flightDetail");
@@ -126,6 +143,7 @@ public class FlightDetailServlet extends HttpServlet {
 	private void getFlightDetailList(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		session = request.getSession(false);		
 		List<FlightDetail> flightList = flightDetailDAO.getFlightDetail();
+//		List<FlightRunningDays>
 		session.setAttribute("flightList", flightList);
 		response.sendRedirect(request.getContextPath()+"/FlightList.jsp");
 	}

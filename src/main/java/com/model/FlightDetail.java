@@ -14,6 +14,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
@@ -33,12 +34,11 @@ public class FlightDetail {
 	@JoinColumn(name="AirlineId")
 	private Airline airline;
 	
-	/*
-	 * @OneToOne(targetEntity = FlightRunningDays.class,cascade =
-	 * CascadeType.ALL,fetch=FetchType.EAGER)
-	 * 
-	 * @JoinColumn(name="FlightId") private FlightRunningDays flightRunningDays;
-	 */
+	
+	  @OneToOne(targetEntity = FlightRunningDays.class,cascade =  CascadeType.ALL,fetch=FetchType.EAGER)	  
+	  @JoinColumn(name="flightScheduleId") 
+	  private FlightRunningDays flightRunningDays;
+	 
 	
 	private double ticketPrice;
 	
@@ -63,12 +63,12 @@ public class FlightDetail {
 	
 
 
-	/*
-	 * public FlightRunningDays getFlightRunningDays() { return flightRunningDays; }
-	 * 
-	 * public void setFlightRunningDays(FlightRunningDays flightRunningDays) {
-	 * this.flightRunningDays = flightRunningDays; }
-	 */
+	
+	  public FlightRunningDays getFlightRunningDays() { return flightRunningDays; }
+	  
+	  public void setFlightRunningDays(FlightRunningDays flightRunningDays) {
+	  this.flightRunningDays = flightRunningDays; }
+	 
 	public TripSourceDestination getTripSrcDest() {
 		return tripSrcDest;
 	}
@@ -130,7 +130,7 @@ public class FlightDetail {
 		this.flightId = flightId;
 		this.tripSrcDest = tripSrcDest;
 		this.airline = airline;
-//		this.flightRunningDays = flightRunningDays;
+		this.flightRunningDays = flightRunningDays;
 		this.ticketPrice = ticketPrice;
 		this.departureTime = departureTime;
 		this.travelDuration = travelDuration;
@@ -139,7 +139,7 @@ public class FlightDetail {
 	@Override
 	public String toString() {
 		return "FlightDetail [flightId=" + flightId + ", tripSrcDest=" + tripSrcDest + ", airline=" + airline
-				 + ", ticketPrice=" + ticketPrice + ", departureTime="
+				+ ", flightRunningDays=" + flightRunningDays + ", ticketPrice=" + ticketPrice + ", departureTime="
 				+ departureTime + ", travelDuration=" + travelDuration + "]";
 	}
 

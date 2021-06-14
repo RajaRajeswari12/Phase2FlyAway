@@ -18,9 +18,12 @@ public class FlightRunningDays {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int flightScheduleId;
 	
-	@OneToOne(targetEntity = FlightDetail.class,cascade=CascadeType.ALL)
-	@JoinColumn( name="flightId",nullable=false)
-	private FlightDetail flightdetail;
+	/*
+	 * @OneToOne(targetEntity = FlightDetail.class,cascade=CascadeType.ALL)
+	 * 
+	 * @JoinColumn( name="flightId",nullable=false) private FlightDetail
+	 * flightdetail;
+	 */
 	
 	@Column(name="Monday")
 	private boolean runningOnMonday;
@@ -56,14 +59,12 @@ public class FlightRunningDays {
 		this.flightScheduleId = flightScheduleId;
 	}
 	 
-	public FlightDetail getFlightdetail() {
-		return flightdetail;
-	}
-
-	public void setFlightdetail(FlightDetail flightdetail) {
-		this.flightdetail = flightdetail;
-	}
-
+	/*
+	 * public FlightDetail getFlightdetail() { return flightdetail; }
+	 * 
+	 * public void setFlightdetail(FlightDetail flightdetail) { this.flightdetail =
+	 * flightdetail; }
+	 */
 	public boolean isRunningOnMonday() {
 		return runningOnMonday;
 	}
@@ -125,7 +126,7 @@ public class FlightRunningDays {
 			boolean runningOnSaturday, boolean runningOnSunday) {
 		super();
 		this.flightScheduleId = flightScheduleId;
-		this.flightdetail = flightdetail;
+//		this.flightdetail = flightdetail;
 		this.runningOnMonday = runningOnMonday;
 		this.runningOnTuesday = runningOnTuesday;
 		this.runningOnWednesday = runningOnWednesday;
@@ -137,8 +138,7 @@ public class FlightRunningDays {
 
 	@Override
 	public String toString() {
-		return "FlightRunningDays [flightScheduleId=" + flightScheduleId + ", flightdetail=" + flightdetail
-				+ ", runningOnMonday=" + runningOnMonday + ", runningOnTuesday=" + runningOnTuesday
+		return "FlightRunningDays [flightScheduleId=" + flightScheduleId +  ", runningOnMonday=" + runningOnMonday + ", runningOnTuesday=" + runningOnTuesday
 				+ ", runningOnWednesday=" + runningOnWednesday + ", runningOnThursday=" + runningOnThursday
 				+ ", runningOnFriday=" + runningOnFriday + ", runningOnSaturday=" + runningOnSaturday
 				+ ", runningOnSunday=" + runningOnSunday + "]";
