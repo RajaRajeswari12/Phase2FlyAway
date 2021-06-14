@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC 
+  "-//Hibernate/Hibernate Configuration DTD 3.0//EN" 
+  "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+  <session-factory>
+   <property name="connection.driver_class">com.mysql.cj.jdbc.Driver</property>
+ <!--    <property name="connection.driver_class">com.mysql.jdbc.Driver</property> -->
+    <property name="connection.url">jdbc:mysql://localhost:3306/airlineticket</property>
+
+    <property name="connection.username">root</property>
+    <property name="connection.password">Jrr12042012@</property>
+<!--     <property name="connection.pool_size">1</property> -->
+    <property name="dialect">org.hibernate.dialect.MySQL8Dialect</property>
+    <property name="current_session_context_class">thread</property>
+    <property name="show_sql">true</property>
+    <property name="format_sql">true</property>
+    <property name="hbm2ddl.auto">create</property>
+    <mapping class="com.model.TripSourceDestination" />
+        <mapping class="com.model.Airline" />
+        <mapping class="com.model.FlightRunningDays" />
+            <mapping class="com.model.FlightDetail" />
+              <mapping class="com.model.FlightAvailabilityByDate" />
+                
+                  <mapping class="com.model.FlightTicket" />
+                    <mapping class="com.model.PassengersDetail" />
+  </session-factory>
+  
+  
+</hibernate-configuration>
