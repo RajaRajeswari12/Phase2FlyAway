@@ -14,14 +14,12 @@
 <meta charset="ISO-8859-1">
 <title>Retrieve Flight Detail</title>
 <link rel="stylesheet" href="mystyle.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 <body>
 
-	<br>
-	<%@include file="Header.jsp"%>
 
-	<br>
-	<br>
+
 	<%@include file="subMenu.jsp"%>
 	<br>
 
@@ -64,10 +62,7 @@
 						<td><c:out value="${flight.ticketPrice }"></c:out></td>
 						<td><c:out value="${flight.departureTime }"></c:out></td>
 						<td><c:out value="${flight.travelDuration }"></c:out></td>
-						<%-- <c:forEach var="flightSchedule" items="${ flightRunningDays}">
-						<c:choose>
-						<c:when test="${flightSchedule.flightId == flight.flightId}"> --%>
-						
+												
 					
 						<td><input type="checkbox" id="schedule"
 							name="runningOnSunday" value="True" <c:if test="${flight.flightRunningDays.runningOnSunday}" >checked="checked"</c:if> > <label
@@ -91,13 +86,13 @@
 						<td><a href="flightDetail/editFlight?flight=${flight.flightId}"><i
 								style='font-size: 24px; color: red' class='fas'>&#xf044;</i>
 								Edit</a></td>
-									<td><a href="flightDetail/deleteFlight?flight=${flight.flightId}"><i
-								style='font-size: 24px; color: red' class='fas'>&#xf044;</i>
+									<td><a href="flightDetail/deleteFlightById?flightId=${flight.flightId}"><i
+								style='font-size: 24px; color: red' class='fa fa-trash'></i>
 								Delete</a></td>
 					</tr>
 				</c:forEach>
-				<tr><td><input type="submit" value="Delete Selected Flight"
-			name="DeleteFlights"></td></tr>
+				<tr><td><button type="submit" value="Delete Selected Flight" name="DeleteFlights" class="btn btn-dark"><i class="fa fa-trash"></i> Delete Selected Flight</button>
+				</td></tr>
 			</tbody>
 
 		</table>
@@ -107,10 +102,14 @@
 	<%
 	if (request.getParameter("DeleteFlights") != null) {
 		String flightIds[] = request.getParameterValues("flightID");
+		System.out.println("flightIds "+flightIds);
+		if(flightIds != null && flightIds.length > 0){
+			session.removeAttribute("flightList");
 		session.setAttribute("FlightIdList", flightIds);
 	%>
 	<jsp:forward page="flightDetail/deleteFlight"></jsp:forward>
 	<%
+	}
 	}
 	%>
 

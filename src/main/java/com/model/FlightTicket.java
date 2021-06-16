@@ -6,10 +6,12 @@ import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -21,9 +23,12 @@ public class FlightTicket {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int ticketId;
 	
+	
+	private String userName;
+	
 	private int flightNo;
 	
-	@OneToMany(targetEntity = PassengersDetail.class,cascade=CascadeType.ALL)
+	@OneToMany(targetEntity = PassengersDetail.class,cascade=CascadeType.ALL,fetch=FetchType.EAGER)
 	@JoinColumn(name="ticketId")
 	private List<PassengersDetail> passengerList;
 	
@@ -45,6 +50,17 @@ public class FlightTicket {
 
 	public void setTicketId(int ticketId) {
 		this.ticketId = ticketId;
+	}
+
+	
+	
+
+	public String getUserName() {
+		return userName;
+	}
+
+	public void setUserName(String userName) {
+		this.userName = userName;
 	}
 
 	public int getFlightNo() {

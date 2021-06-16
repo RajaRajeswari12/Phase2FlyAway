@@ -33,7 +33,8 @@
 				</tr>
 				<tr>
 					<td>Source City Name</td>
-					<td><input type="text"
+					<td><input type="hidden" name="tripId" value="<%= flight.getTripSrcDest().getTripId() %>">
+					<input type="text"
 						value="<%=flight.getTripSrcDest().getSourceCityName()%>"
 						name="sourceCityName"></td>
 				</tr>
@@ -57,7 +58,8 @@
 				</tr>
 				<tr>
 					<td>Airline</td>
-					<td><input type="text"
+					<td><input type="hidden" name="airlineId" value="<%=flight.getAirline().getAirlineId() %>">
+					<input type="text"
 						value="<%=flight.getAirline().getAirLineName()%>"
 						name="airLineName"></td>
 

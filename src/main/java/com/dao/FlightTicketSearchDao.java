@@ -1,5 +1,6 @@
 package com.dao;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -77,12 +78,45 @@ public class FlightTicketSearchDao {
 		return availableFlightList;
 	}
 	
-	public void bookTicket(FlightTicket flightTicket) {
+	public FlightTicket bookTicket(FlightTicket flightTicket) {
 		session = HibernateUtil.getSessionFactory().openSession();
 		try 
 		{
 			transaction = session.beginTransaction();
-			session.saveOrUpdate(flightTicket);
+			deductFlightSeat(flightTicket.getFlightNo(),flightTicket.getTravelDate(),flightTicket.getNoOfPassenger());
+			session.save(flightTicket);
+		
+//			session.refresh(flightTicket);
+		System.out.println(flightTicket);
+			transaction.commit();
+			session.close();
+			return flightTicket;
+		}
+		catch(Exception e)
+		{
+			exceptionBlock(e);
+			return null;
+		}
+
+	}
+	
+	public void deductFlightSeat(int flightId,LocalDate travelDate,int noOfPassengers) {
+		
+			String deductTicketfromFlightAvailability = "update FlightAvailabilityByDate fad set fad.noOfTickets = fad.noOfTickets-:noOfPassengers where "
+					+ " fad.flightdetail.flightId=:flightId and fad.travelDate = :travelDate";
+			session.createQuery(deductTicketfromFlightAvailability).setParameter("noOfPassengers",noOfPassengers)
+			.setParameter("flightId",flightId).setParameter("travelDate",travelDate).executeUpdate();
+	
+	}
+	
+	public FlightTicket getFlightTicket(int TicketNo) {
+		session = HibernateUtil.getSessionFactory().openSession();
+		FlightTicket flightTicket=new FlightTicket();
+		try 
+		{
+			transaction = session.beginTransaction();
+			String getTicketDetail = "from FlightTicket ft where ft.ticketId=:TicketNo";
+			flightTicket=(FlightTicket)session.createQuery(getTicketDetail).setParameter("TicketNo",TicketNo).uniqueResult();
 			transaction.commit();
 			session.close();
 		}
@@ -90,7 +124,8 @@ public class FlightTicketSearchDao {
 		{
 			exceptionBlock(e);
 		}
-
+		
+		return flightTicket;
 	}
 	
 	void exceptionBlock(Exception e) {

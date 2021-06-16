@@ -16,12 +16,9 @@ import com.model.FlightAvailabilityByDate;
 import com.model.FlightTicket;
 import com.model.PassengersDetail;
 import com.model.SearchFlightDetailPojo;
-import com.model.TripSourceDestination;
 
-/**
- * Servlet implementation class FlightRunningDaysServlet
- */
-@WebServlet("/flightSchedule/*")
+
+@WebServlet("/flightTicketSchedule/*")
 public class FlightTicketSearchServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	FlightTicketSearchDao flightTicketSearchDao;	
@@ -43,45 +40,83 @@ public class FlightTicketSearchServlet extends HttpServlet {
 		
 		switch(requestPath) {
 		case "/searchForm":
-			 session=request.getSession();
-			List<String> tripDestinationList = flightTicketSearchDao.getDestinationList();
-			List<String> tripSourceList = flightTicketSearchDao.getSourceList();
-//			System.out.println(tripDestinationList);
-			session.setAttribute("destinationList", tripDestinationList);
-			session.setAttribute("srcList", tripSourceList);
-			response.sendRedirect(request.getContextPath()+"/SearchForm.jsp");
+			searchForm(request,response);
 			break;
 		case "/searchFlight":
-			 session=request.getSession();
-			SearchFlightDetailPojo searchDetail = (SearchFlightDetailPojo)session.getAttribute("searchFlt");
-//			System.out.println(searchDetail);
-			List<FlightAvailabilityByDate> availableFlightList = flightTicketSearchDao.getAvailableFlight(searchDetail);
-			session.setAttribute("availableFlightList", availableFlightList);
-			response.sendRedirect(request.getContextPath()+"/SearchResult.jsp");
+			searchFlight(request,response);
 			break;
 			
 		case "/bookFlightTicket":
-			 session=request.getSession();
-			 Integer flightId = Integer.valueOf(request.getParameter("flightNo"));
-			 LocalDate travelDate = LocalDate.parse(request.getParameter("travelDate"));
-			 List<FlightAvailabilityByDate> availableFlights = (List<FlightAvailabilityByDate>) session.getAttribute("availableFlightList");
-			 for(FlightAvailabilityByDate fad:availableFlights) {
-				 if(fad.getFlightdetail().getFlightId() == flightId && fad.getTravelDate().isEqual(travelDate)) {
-					 session.setAttribute("ChosenFlightDetail",fad);
-					 break;
-				 }
-			 }
-			 response.sendRedirect(request.getContextPath()+"/BookTicket.jsp");
+			bookFlightTicket(request,response);
 			break;
 		case "/bookTicket":
-			session=request.getSession();
-			List<PassengersDetail> passengerList = (List<PassengersDetail>) session.getAttribute("passengerList");
-			FlightTicket flightTicket = (FlightTicket)session.getAttribute("flightTicket");
-			flightTicket.setPassengerList(passengerList);
-			flightTicketSearchDao.bookTicket(flightTicket);
+			payAndBookTicket(request,response);
+			break;
+			
+		case "/bookedTicket":
+			getBookedTicketDetail(request,response);
 			break;
 			
 		}
+	}
+
+	private void getBookedTicketDetail(HttpServletRequest request, HttpServletResponse response) throws IOException {
+		session=request.getSession(false);
+		Integer ticketNo = Integer.valueOf(request.getParameter("TicketNo"));
+		session.removeAttribute("flightTicket");
+		FlightTicket getFlightTicketDetail = flightTicketSearchDao.getFlightTicket(ticketNo);
+		session.setAttribute("flightTicket",getFlightTicketDetail);
+		response.sendRedirect(request.getContextPath()+"/Ticket.jsp");
+		
+	}
+
+	private void payAndBookTicket(HttpServletRequest request, HttpServletResponse response) throws IOException {
+		session=request.getSession(false);
+		List<PassengersDetail> passengerList = (List<PassengersDetail>) session.getAttribute("passengerList");
+		FlightTicket flightTicket = (FlightTicket)session.getAttribute("flightTicket");
+		flightTicket.setPassengerList(passengerList);
+		FlightTicket savedFlightTicket = flightTicketSearchDao.bookTicket(flightTicket);
+		if(savedFlightTicket != null) {
+		response.sendRedirect(request.getContextPath()+"/Ticket.jsp");
+		}
+		else {
+			response.sendRedirect(request.getContextPath()+"/BookingFailed.jsp");
+		}
+	}
+
+	private void bookFlightTicket(HttpServletRequest request, HttpServletResponse response) throws IOException {
+		 session=request.getSession(false);
+		 Integer flightId = Integer.valueOf(request.getParameter("flightNo"));
+		 LocalDate travelDate = LocalDate.parse(request.getParameter("travelDate"));
+		 List<FlightAvailabilityByDate> availableFlights = (List<FlightAvailabilityByDate>) session.getAttribute("availableFlightList");
+		 for(FlightAvailabilityByDate fad:availableFlights) {
+			 if(fad.getFlightdetail().getFlightId() == flightId && fad.getTravelDate().isEqual(travelDate)) {
+				 session.setAttribute("ChosenFlightDetail",fad);
+				 break;
+			 }
+		 }
+		 response.sendRedirect(request.getContextPath()+"/BookTicket.jsp");
+		
+	}
+
+	private void searchFlight(HttpServletRequest request, HttpServletResponse response) throws IOException {
+		 session=request.getSession(false);
+			SearchFlightDetailPojo searchDetail = (SearchFlightDetailPojo)session.getAttribute("searchFlt");
+			List<FlightAvailabilityByDate> availableFlightList = flightTicketSearchDao.getAvailableFlight(searchDetail);
+			session.setAttribute("availableFlightList", availableFlightList);
+			response.sendRedirect(request.getContextPath()+"/SearchResult.jsp");
+		
+	}
+
+	private void searchForm(HttpServletRequest request, HttpServletResponse response) throws IOException {
+		 session=request.getSession(false);
+			List<String> tripDestinationList = flightTicketSearchDao.getDestinationList();
+			List<String> tripSourceList = flightTicketSearchDao.getSourceList();
+
+			session.setAttribute("destinationList", tripDestinationList);
+			session.setAttribute("srcList", tripSourceList);
+			response.sendRedirect(request.getContextPath()+"/SearchForm.jsp");
+		
 	}
 
 }

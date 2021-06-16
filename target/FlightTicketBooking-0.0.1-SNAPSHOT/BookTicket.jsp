@@ -13,6 +13,7 @@
 <link rel="stylesheet" href="mystyle.css">
 </head>
 <body>
+<%@include file="Header.jsp"%>
 	<%
 	FlightAvailabilityByDate choosenFlight = (FlightAvailabilityByDate) session.getAttribute("ChosenFlightDetail");
 	LocalTime departTime = choosenFlight.getFlightdetail().getDepartureTime();
@@ -32,10 +33,10 @@
 	ft.setTravelDate(choosenFlight.getTravelDate());
 	ft.setDepartureTime(departTime);
 	ft.setTotalFare(ticketPrice*noOfPassengers);
-	
+	ft.setUserName((String)session.getAttribute("userName"));
 	session.setAttribute("flightTicket", ft);
 	%>
-	
+	<p> <center> Kindly confirm your Ticket Booking Details mentioned below</center></p>
 	
 
 	<form method="post" action="PassengerDetails.jsp">

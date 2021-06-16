@@ -19,6 +19,7 @@
     <mapping class="com.model.FlightRunningDays" />
     <mapping class="com.model.TripSourceDestination" />
         <mapping class="com.model.Airline" />
+          <mapping class="com.model.User" />
         
             <mapping class="com.model.FlightDetail" />
               <mapping class="com.model.FlightAvailabilityByDate" />

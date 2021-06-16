@@ -35,7 +35,7 @@ public class FlightDetailServlet extends HttpServlet {
 	/* FlightScheduleDao flightScheduleDAO; */
 	HttpSession session = null;
 
-	
+
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
@@ -44,7 +44,7 @@ public class FlightDetailServlet extends HttpServlet {
 		flightDetailDAO = new FlightDetailDao(); 
 	}
 
-	
+
 	/**
 	 * @see HttpServlet#service(HttpServletRequest request, HttpServletResponse
 	 *      response)
@@ -75,42 +75,48 @@ public class FlightDetailServlet extends HttpServlet {
 		case "/updateFlightDtl":
 			updateFlightDetail(request,response);		
 			break;
-		case "/populateFlightDtl":
-			populateFlightDetail(request,response);
+
+		case "/deleteFlightById":						
+			deleteFlightByFlightId(request,response);			
 			break;
+
 		}
 	}
 
-	
-	private void populateFlightDetail(HttpServletRequest request, HttpServletResponse response) throws IOException {
-		session = request.getSession();
-		Integer dayCount = Integer.valueOf(request.getParameter("DayCount"));
-		LocalDate startDate = LocalDate.parse(request.getParameter("populateStartDate"));
-		flightDetailDAO.populateFlightDetail(dayCount, startDate);
-		List<FlightAvailabilityByDate> flightAvailabilityByDateList = flightDetailDAO.getFlightAvailabilityByDate();
-		session.setAttribute("flightAvailabilityByDateList", flightAvailabilityByDateList);
-		response.sendRedirect(request.getContextPath()+"/ListFlightTicketsAvailability.jsp");
-		
+
+
+
+
+	private void deleteFlightByFlightId(HttpServletRequest request, HttpServletResponse response) throws IOException {
+
+		Integer flightId = Integer.valueOf(request.getParameter("flightId"));
+		List<Integer> flightids = new ArrayList<>();
+		flightids.add(flightId);
+		flightDetailDAO.deleteFlightDetails(flightids);
+		getFlightDetailList(request,response);
+
 	}
 
 
+
+
 	private void addNewFlightDetail(HttpServletRequest request, HttpServletResponse response) throws IOException {
-		session = request.getSession();
+		session = request.getSession(false);
 		FlightDetail fd = (FlightDetail) session.getAttribute("flightDetail");
 		flightDetailDAO.registerFlightDetail(fd);
 		getFlightDetailList(request, response);
 	}
 
-	
+
 	private void updateFlightDetail(HttpServletRequest request, HttpServletResponse response) throws IOException {
-		session = request.getSession();
+		session = request.getSession(false);
 		FlightDetail flightDetail=(FlightDetail) session.getAttribute("upFlightDetail");
 		flightDetailDAO.updateFlightDetail(flightDetail);
 		getFlightDetailList(request, response);
 	}
 
 	private void editFlightDetail(HttpServletRequest request, HttpServletResponse response) throws IOException {
-		session = request.getSession();
+		session = request.getSession(false);
 
 		Integer flightId= Integer.valueOf(request.getParameter("flight"));		
 		List<FlightDetail> flightList = (ArrayList) session.getAttribute("flightList");
@@ -123,17 +129,19 @@ public class FlightDetailServlet extends HttpServlet {
 		response.sendRedirect(request.getContextPath()+"/EditFlightDetail.jsp");
 	}
 
-	
-	private void deleteListedFlight(HttpServletRequest request, HttpServletResponse response) throws IOException {
-		session = request.getSession();
-		String[] flightIdList = (String[]) session.getAttribute("FlightIdList");
-		
-		List<Integer> flightids = new ArrayList<>();
 
-		for(String s:flightIdList) {
-			flightids.add(Integer.valueOf(s));			
+	private void deleteListedFlight(HttpServletRequest request, HttpServletResponse response) throws IOException {
+	
+		String flightIdList[] = request.getParameterValues("flightID");
+		
+		if(flightIdList != null && flightIdList.length > 0){
+			List<Integer> flightids = new ArrayList<>();
+			for(String s:flightIdList) {
+				flightids.add(Integer.valueOf(s));			
+			}
+			flightDetailDAO.deleteFlightDetails(flightids);
 		}
-		flightDetailDAO.deleteFlightDetails(flightids);
+
 		getFlightDetailList(request,response);
 	}
 
@@ -143,7 +151,6 @@ public class FlightDetailServlet extends HttpServlet {
 	private void getFlightDetailList(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		session = request.getSession(false);		
 		List<FlightDetail> flightList = flightDetailDAO.getFlightDetail();
-//		List<FlightRunningDays>
 		session.setAttribute("flightList", flightList);
 		response.sendRedirect(request.getContextPath()+"/FlightList.jsp");
 	}

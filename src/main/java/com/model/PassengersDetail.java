@@ -69,8 +69,8 @@ public class PassengersDetail {
 
 	@Override
 	public String toString() {
-		return "PassengersDetail [PassengerId=" + PassengerId + ", firstName="
-				+ firstName + ", lastName=" + lastName + ", age=" + age + ", Gender=" + Gender + "]";
+		return "PassengerId=" + PassengerId + ", firstName="
+				+ firstName + ", lastName=" + lastName + ", age=" + age + ", Gender=" + Gender ;
 	}
 	
 	

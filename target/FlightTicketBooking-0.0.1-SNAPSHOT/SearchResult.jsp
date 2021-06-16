@@ -49,7 +49,7 @@
 						<td><c:out value="${flightIt.flightdetail.tripSrcDest.destCityName }"></c:out></td>
 						<td><c:out value="${flightIt.travelDate}"></c:out></td>
 						<td><c:out value="${flightIt.noOfTickets}"></c:out></td>
-						<td><a href="flightSchedule/bookFlightTicket?flightNo=${flightIt.flightdetail.flightId}&travelDate=${flightIt.travelDate}"><i class="fa fa-ticket" style="font-size:24px">Book Ticket</i></a></td>
+						<td><a href="flightTicketSchedule/bookFlightTicket?flightNo=${flightIt.flightdetail.flightId}&travelDate=${flightIt.travelDate}"><i class="fa fa-ticket" style="font-size:24px">Book Ticket</i></a></td>
 					</tr>
 				</c:forEach>
 
