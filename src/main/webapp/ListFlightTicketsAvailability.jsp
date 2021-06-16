@@ -25,7 +25,7 @@
 	%>
 	<form method="post" action="flightSchedule/deleteFlightByTripDate">
 		<h3>
-			<center>Airline List</center>
+			<center>Flight Tickets Availability List By Date</center>
 		</h3>
 	<br>
 

@@ -31,6 +31,7 @@
 		<h3>
 			<center>Flight List</center>
 		</h3>
+		<br>
 		<table class="center">
 			<thead>
 				<tr>

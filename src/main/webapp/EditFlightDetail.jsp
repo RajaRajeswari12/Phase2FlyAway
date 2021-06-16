@@ -18,12 +18,12 @@
 	%>
 	<form method="post" action="setBeanProperty.jsp">
 
-		<h3>Edit The Details of the flight</h3>
+		<h3><center>Edit The Details of the flight</center></h3>
 
 		<table class="center">
 			<thead>
 				<tr>
-					<td>FlightProperties</td>
+					<td>Flight No. <h4>[<%=flight.getFlightId() %>]</h4> Details </td>
 					<td>Details To Be Edited</td>
 				</tr>
 			</thead>

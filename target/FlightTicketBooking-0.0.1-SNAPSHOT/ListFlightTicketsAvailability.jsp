@@ -25,18 +25,20 @@
 	%>
 	<form method="post" action="flightSchedule/deleteFlightByTripDate">
 		<h3>
-			<center>Airline List</center>
+			<center>Flight Tickets Availability List By Date</center>
 		</h3>
-
-		<button type="submit" value="Delete Selected Flight"
-			name="DeleteFlightsByDate" class="btn btn-dark">
-			<i class="fa fa-trash"></i> Delete Selected Flight
-		</button>
+	<br>
 
 		<table class="center">
 			<thead>
 				<tr>
-					<td>Flight No</td>
+					<td>Flight No
+						<hr>
+						<button type="submit" value="Delete Selected Flight"
+							name="DeleteFlightsByDate" class="btn btn-dark">
+							<i class="fa fa-trash"></i> Delete Selected Flight
+						</button>
+					</td>
 					<td>Source</td>
 					<td>Destination</td>
 					<td>Airline</td>
@@ -81,19 +83,6 @@
 			</tbody>
 		</table>
 	</form>
-	<%-- 	<%
-	if (request.getParameter("DeleteFlightsByDate") != null) {
-		String flightTripIds[] = request.getParameterValues("TripScheduleId");
-		for (String s : flightTripIds) {
-			System.out.println(s);
-		}
-
-		if (flightTripIds != null && flightTripIds.length > 0) {
-			session.removeAttribute("flightAvailabilityByDateList");
-			session.setAttribute("FlightTripIdList", flightTripIds);
-			response.sendRedirect("/flightSchedule/deleteFlightByTripDate");
-		}
-	}
-	%> --%>
+	
 </body>
 </html>

@@ -18,13 +18,12 @@
 <link rel="stylesheet" href="mystyle.css">
 </head>
 <body>
-	<%@include file="Header.jsp"%>
+	<%@include file="UserMenu.jsp"%>
+	<br>
 	<form method="post" action="">
 		<script  language = "Javascript">
-			function CheckDate() {
-				
-				var TravelDate = document.getElementById("travelDate").value;
-				
+			function CheckDate() {				
+				var TravelDate = document.getElementById("travelDate").value;				
 				var ToDate = new Date();
 				var travelDt = new Date(TravelDate);
 				
@@ -39,7 +38,6 @@
 
 		<%
 		List<String> destinationList = (ArrayList) session.getAttribute("destinationList");
-
 		List<String> srcList = (ArrayList) session.getAttribute("srcList");
 		%>
 		<br>
@@ -63,7 +61,6 @@
 
 					<td><select id="sourceCityName" name="sourceCityName">
 							<c:forEach var="src" items="${srcList}">
-
 								<option value="${src}">${src}</option>
 							</c:forEach>
 					</select></td>
@@ -99,7 +96,6 @@
 	<%
 	if (request.getParameter("searchFlight") != null) {
 		String travelDate = request.getParameter("travelDate");
-
 		LocalDate localDate = LocalDate.parse(travelDate);
 	%>
 

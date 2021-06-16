@@ -69,18 +69,8 @@
 </tr>
 <tr><td></td><td><input type="submit" value="Register" name="registerFlight"></td></tr>
 </tbody>
-
-
-
 </Table>
-
-
-
 </form>
-
-
-
-
 
 </body>
 </html>

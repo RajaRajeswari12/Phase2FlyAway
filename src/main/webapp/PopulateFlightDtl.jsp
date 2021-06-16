@@ -9,6 +9,7 @@
 	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
 	integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
 	crossorigin="anonymous">
+	<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 </head>
 <body>
 	<script language="Javascript">
@@ -54,7 +55,7 @@
 					placeholder="Date" onchange="CheckDate()" name="populateStartDate"
 					required>
 			</div>
-			<button type="submit" class="btn btn-secondary">Populate
+			<button type="submit" class="btn btn-secondary" style="font-size: 21px;"><i class="material-icons" style="font-size: 29px; color: #86b300">computer</i> Populate
 				FlightDetails</button>
 
 		</form>

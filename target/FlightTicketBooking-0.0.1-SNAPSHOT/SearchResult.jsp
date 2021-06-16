@@ -16,6 +16,7 @@
 <body>
 <%@include file="SearchForm.jsp"%>
 	<br>
+		<hr>
 	<br>
 	<%
 	List<FlightAvailabilityByDate> availableFlightList = (ArrayList) session.getAttribute("availableFlightList");
@@ -25,8 +26,11 @@
 
 	
 	<% if(availableFlightList.size() > 0) {%>
-	INSIDE
+
 	<form method="post" action="">
+	<h3><center> Search Results [From <%=searchFlightDtl.getSourceCityName() %> To <%=searchFlightDtl.getDestinationCityName() %>]</center></h3>
+
+	<br>
 		<table class="center">
 			<thead>
 				<tr>
@@ -35,6 +39,7 @@
 					<td>Destination</td>
 					<td>TravelDate</td>
 					<td>Tickets Available</td>
+					<td>Book Tickets</td>
 				</tr>
 			</thead>
 			<tbody>

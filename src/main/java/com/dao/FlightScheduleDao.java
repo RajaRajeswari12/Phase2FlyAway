@@ -15,49 +15,6 @@ public class FlightScheduleDao {
 	Session session = null;
 	Transaction transaction = null;
 
-	public void registerFlightRunningDays(FlightRunningDays flightRunningDays) {
-
-		session =HibernateUtil.getSessionFactory().openSession();
-		try
-		{ 
-			transaction = session.beginTransaction();
-			session.saveOrUpdate(flightRunningDays);
-			transaction.commit(); 
-			session.close(); 
-		}
-		catch(Exception e) 
-		{ 
-			exceptionBlock(e);
-		}
-	}
-
-	public void deleteFlightRunningOnSpecificDays(int flightId,List runningDaysList) {
-		session = HibernateUtil.getSessionFactory().openSession();
-		try
-		{
-			transaction = session.beginTransaction();
-
-			String deleteFlightSpecificRunningDay = "delete from FlightAvailabilityByDate fad where fad.flightdetail.flightId=:flightId"
-					+ " and weekday(fad.travelDate)+1 in (:runningDaysList) and fad.travelDate >= current_date ";
-
-			session.createQuery(deleteFlightSpecificRunningDay).setParameter("flightId", flightId).setParameter("runningDaysList", runningDaysList).executeUpdate();
-			transaction.commit();
-			session.close();
-		}
-		catch(Exception e)
-		{
-			exceptionBlock(e);
-		}
-	}
-
-	
-	void exceptionBlock(Exception e) {
-		if(transaction != null)
-			transaction.rollback();
-
-		e.printStackTrace();
-	}
-
 
 	public void deleteFlightDetailsByTripIds(List<Integer> FlightTripId) 
 	{
@@ -117,59 +74,40 @@ public class FlightScheduleDao {
 
 		return flightAvailabilityByDateList;
 	}
+	
+	void exceptionBlock(Exception e) {
+		if(transaction != null)
+			transaction.rollback();
+
+		e.printStackTrace();
+	}
+
+	
+	/*
+	 * public void registerFlightRunningDays(FlightRunningDays flightRunningDays) {
+	 * 
+	 * session =HibernateUtil.getSessionFactory().openSession(); try { transaction =
+	 * session.beginTransaction(); session.saveOrUpdate(flightRunningDays);
+	 * transaction.commit(); session.close(); } catch(Exception e) {
+	 * exceptionBlock(e); } }
+	 * 
+	 * public void deleteFlightRunningOnSpecificDays(int flightId,List
+	 * runningDaysList) { session = HibernateUtil.getSessionFactory().openSession();
+	 * try { transaction = session.beginTransaction();
+	 * 
+	 * String deleteFlightSpecificRunningDay =
+	 * "delete from FlightAvailabilityByDate fad where fad.flightdetail.flightId=:flightId"
+	 * +
+	 * " and weekday(fad.travelDate)+1 in (:runningDaysList) and fad.travelDate >= current_date "
+	 * ;
+	 * 
+	 * session.createQuery(deleteFlightSpecificRunningDay).setParameter("flightId",
+	 * flightId).setParameter("runningDaysList", runningDaysList).executeUpdate();
+	 * transaction.commit(); session.close(); } catch(Exception e) {
+	 * exceptionBlock(e); } }
+	 */
+	
 }
 
 
 
-/*
- * public List<FlightRunningDays> getFlightRunningDays(){
- * List<FlightRunningDays> flightRunningDaysList = new ArrayList<>(); session =
- * HibernateUtil.getSessionFactory().openSession(); try { transaction =
- * session.beginTransaction(); flightRunningDaysList =
- * session.createQuery("from FlightRunningDays").list(); transaction.commit();
- * session.close(); } catch(Exception e) { exceptionBlock(e); } return
- * flightRunningDaysList; }
- */
-
-/*
- * public void deleteFlightRunningDaydetail(int flightRunId) { session =
- * HibernateUtil.getSessionFactory().openSession(); try {
- * 
- * transaction = session.beginTransaction();
- * 
- * String deleteFlightAvailablebyDate =
- * "delete from FlightAvailabilityByDate fad where fad.flightdetail.flightId in (select fd.flightId from FlightRunningDays fd "
- * + "where fd.flightRunningId=:flightRunId )";
- * 
- * session.createQuery(deleteFlightAvailablebyDate).setParameter("flightRunId",
- * flightRunId).executeUpdate(); FlightRunningDays flightRunningDays =
- * session.get(FlightRunningDays.class,flightRunId);
- * session.delete(flightRunningDays); transaction.commit(); session.close(); }
- * catch(Exception e) { exceptionBlock(e); }
- * 
- * }
- */
-
-/*
- * public FlightRunningDays getFlightRunningDayById(int flightId){
- * FlightRunningDays flightRunningDays= new FlightRunningDays(); session =
- * HibernateUtil.getSessionFactory().openSession(); try { transaction =
- * session.beginTransaction(); flightRunningDays = (FlightRunningDays) session.
- * createQuery("from FlightRunningDays frd where frd.flightId=:flightId ").
- * setParameter("flightId",flightId).uniqueResult(); transaction.commit();
- * session.close(); } catch(Exception e) { exceptionBlock(e); }
- * 
- * return flightRunningDays; }
- */
-
-/*
- * public void updateFlightRunningDays(FlightRunningDays flightRunningDays) {
- * 
- * session =HibernateUtil.getSessionFactory().openSession(); try { transaction =
- * session.beginTransaction(); // FlightDetail flightDetail =
- * session.get(FlightDetail.class,flightRunningDays.getFlightId()); //
- * flightRunningDays.setFlightdetail(flightDetail);
- * 
- * session.update(flightRunningDays); transaction.commit(); session.close(); }
- * catch(Exception e) { exceptionBlock(e); } }
- */

@@ -116,7 +116,7 @@ public class FlightDetailDao {
 	}
 
 
-	public FlightDetail getFlightDetail(int flightId) 
+	public FlightDetail getFlightDetailById(int flightId) 
 	{ 
 		FlightDetail flightDetail		= new FlightDetail();
 		session =HibernateUtil.getSessionFactory().openSession(); 

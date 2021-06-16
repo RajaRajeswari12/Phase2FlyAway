@@ -15,7 +15,7 @@
 <body>
 	<%
 	String validLogin = (String) session.getAttribute("InvalidLogin");
-	System.out.println("Valid Login" + validLogin);
+
 	session.removeAttribute("InvalidLogin");
 	%>
 	<%@include file="MainMenu.jsp"%>

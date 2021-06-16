@@ -9,19 +9,23 @@
 <meta charset="ISO-8859-1">
 <title>Get Passenger Details</title>
 <link rel="stylesheet" href="mystyle.css">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 <body>
-	<%@include file="Header.jsp"%>
+	<%@include file="UserMenu.jsp"%>
 	<br>
-	<%Integer noOfPassenger = (Integer) session.getAttribute("TotalPassengers");
-	if(noOfPassenger != null){
+	<%
+	Integer noOfPassenger = (Integer) session.getAttribute("TotalPassengers");
+	if (noOfPassenger != null) {
 	%>
 	<form method="post" action="">
 
 		<div class="form-group">
-		<p> <h3 class="center"> Kindly Enter the Details of the Passenger </h3></p>
-			<table class="table-secondary">
+			<p>
+			<h3 > <center>Kindly Enter the Details of the Passenger</center></h3>
+			</p>
+			<table class="center">
 				<thead>
 					<tr>
 						<td>Serial No</td>
@@ -33,8 +37,6 @@
 				</thead>
 				<tbody>
 					<%
-					
-
 					for (int loop = 1; loop <= noOfPassenger; loop++) {
 					%>
 					<tr>
@@ -49,12 +51,22 @@
 						<%
 						}
 						%>
-					<tr><td></td><td></td><td></td><td></td><td><Button type="submit" class="btn btn-secondary" value="Pay Now" name="Pay"><i class="fa fa-plane"></i>PayNow</Button></td></tr>
+					
+					<tr>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td><Button style="font-size: 24px" type="submit" class="btn btn-secondary"
+								value="Pay Now" name="Pay">
+								<i class="fa fa-plane" style="font-size: 29px; color: #86b300"></i>PayNow
+							</Button></td>
+					</tr>
 				</tbody>
 			</table>
 
-			
-				</div>
+
+		</div>
 	</form>
 
 	<%
@@ -67,19 +79,19 @@
 			ps.setAge(Integer.valueOf(request.getParameter("Age" + loop)));
 			ps.setGender(request.getParameter("Gender" + loop));
 			passengerList.add(ps);
-			System.out.println(ps);
 		}
 
 		session.setAttribute("passengerList", passengerList);
-		System.out.println(passengerList + "Outside Loop");
 	%>
 	<jsp:forward page="PaymentSite.jsp"></jsp:forward>
 	<%
 	}
-	}else {
+	} else {
 	%>
-<h3> Page Details Not found. Try Again </h3>
-<%} %>
+	<h3>Page Details Not found. Try Again</h3>
+	<%
+	}
+	%>
 
 </body>
 </html>

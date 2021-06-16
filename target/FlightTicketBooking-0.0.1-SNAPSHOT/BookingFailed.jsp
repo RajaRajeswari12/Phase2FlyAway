@@ -9,7 +9,8 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 <body>
-<%@include file="Header.jsp"%>
+<%@include file="UserMenu.jsp"%>
+	<br>
 <h4> Sorry booking Failed . Please Try Again</h4>
 </body>
 </html>

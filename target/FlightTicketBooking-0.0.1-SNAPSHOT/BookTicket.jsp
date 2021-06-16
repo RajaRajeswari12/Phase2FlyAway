@@ -11,9 +11,11 @@
 <meta charset="ISO-8859-1">
 <title>Flight Detail Confirmation</title>
 <link rel="stylesheet" href="mystyle.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 </head>
 <body>
-<%@include file="Header.jsp"%>
+<%@include file="UserMenu.jsp"%>
+	<br>
 
 
 	<%
@@ -40,7 +42,8 @@
 	ft.setUserName((String)session.getAttribute("userName"));
 	session.setAttribute("flightTicket", ft);
 	%>
-	<p> <center> Kindly confirm your Ticket Booking Details mentioned below</center></p>
+	<h3> <center> Kindly confirm your Ticket Booking Details mentioned below</center></h3>
+	<br>
 	
 
 	<form method="post" action="PassengerDetails.jsp">
@@ -91,8 +94,8 @@
 				</tr>
 				<tr>
 					<td></td>
-					<td><input type="submit" value="Confirm Booking" name="book"
-						onclick=<c:set var="TotalPassengers" value="<%=noOfPassengers %>" scope="session"></c:set>></td>
+					<td><Button type="submit" value="Confirm Booking" name="book" class="btn btn-dark"
+						onclick=<c:set var="TotalPassengers" value="<%=noOfPassengers %>" scope="session"></c:set>><i class="material-icons" style="font-size: 29px; color: #86b300">local_airport</i> Confirm Booking</Button></td>
 				</tr>
 
 			</tbody>
@@ -107,5 +110,3 @@
 	
 </body>
 </html>
-
-<%--  --%>

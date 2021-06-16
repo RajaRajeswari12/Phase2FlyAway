@@ -54,10 +54,7 @@
 	%>
 	<jsp:useBean id="RegisterUser" class="com.model.User" scope="session"></jsp:useBean>
 	<jsp:setProperty property="*" name="RegisterUser" />
-	<%
-	System.out.println(RegisterUser);
-	%>
-
+	
 	<jsp:forward page="UserRegisterServlet/register"></jsp:forward>
 
 	<%} %>
