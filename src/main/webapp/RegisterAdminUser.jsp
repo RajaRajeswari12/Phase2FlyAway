@@ -11,7 +11,8 @@
 	crossorigin="anonymous">
 </head>
 <body>
-<%@include file="MainMenu.jsp"%>
+	<%@include file="AdminMenu.jsp"%>
+	<br>
 	<div class="container col-md-8 col-md-offset-3" style="overflow: auto">
 		<h1>Register Form</h1>
 		<form action="" method="post">
@@ -53,10 +54,7 @@
 	%>
 	<jsp:useBean id="RegisterUser" class="com.model.User" scope="session"></jsp:useBean>
 	<jsp:setProperty property="*" name="RegisterUser" />
-	<%
-	System.out.println(RegisterUser);
-	%>
-
+	
 	<jsp:forward page="UserRegisterServlet/register"></jsp:forward>
 
 	<%} %>

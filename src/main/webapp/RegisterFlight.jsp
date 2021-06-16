@@ -15,9 +15,9 @@
 <link rel="stylesheet" href="mystyle.css">
 </head>
 <body>
-<br>
-<%@include file="subMenu.jsp" %>
-<br>
+
+	<%@include file="AdminMenu.jsp"%>
+	<br>
 <br>
 
 
@@ -69,18 +69,8 @@
 </tr>
 <tr><td></td><td><input type="submit" value="Register" name="registerFlight"></td></tr>
 </tbody>
-
-
-
 </Table>
-
-
-
 </form>
-
-
-
-
 
 </body>
 </html>

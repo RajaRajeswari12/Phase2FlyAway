@@ -7,8 +7,9 @@
 <title>Insert title here</title>
 </head>
 <body>
-<%@include file="Header.jsp"%>
-<form action="flightTicketSchedule/bookedTicketList" method="post">
+<%@include file="UserMenu.jsp"%>
+	<br>
+<form action="flightTicketSchedule/bookedTicket" method="post">
 
 <div class="container col-md-8 col-md-offset-3" style="overflow: auto">
 		<h1>Get Ticket Details</h1>

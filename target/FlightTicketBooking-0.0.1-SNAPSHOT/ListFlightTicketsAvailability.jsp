@@ -16,9 +16,7 @@
 </head>
 <body>
 
-
-	<br>
-	<%@include file="subMenu.jsp"%>
+	<%@include file="AdminMenu.jsp"%>
 	<br>
 
 	<%
@@ -83,7 +81,7 @@
 			</tbody>
 		</table>
 	</form>
-<%-- 	<%
+	<%-- 	<%
 	if (request.getParameter("DeleteFlightsByDate") != null) {
 		String flightTripIds[] = request.getParameterValues("TripScheduleId");
 		for (String s : flightTripIds) {

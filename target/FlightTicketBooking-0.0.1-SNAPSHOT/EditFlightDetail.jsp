@@ -10,9 +10,11 @@
 <link rel="stylesheet" href="mystyle.css">
 </head>
 <body>
+<%@include file="AdminMenu.jsp"%>
+	<br>
 	<%
 	FlightDetail flight = (FlightDetail) session.getAttribute("flightDtl");
-	/* FlightRunningDays flightRunningDay = (FlightRunningDays) session.getAttribute("flightRunningDay"); */
+	if(flight != null){
 	%>
 	<form method="post" action="setBeanProperty.jsp">
 
@@ -114,6 +116,8 @@
 
 
 	</form>
-
+<%}else{ %>
+<h3> Page Details Not found. Try Again </h3>
+<%} %>
 </body>
 </html>

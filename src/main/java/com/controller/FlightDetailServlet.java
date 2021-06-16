@@ -24,15 +24,12 @@ import com.model.FlightDetail;
 import com.model.FlightRunningDays;
 import com.model.TripSourceDestination;
 
-/**
- * Servlet implementation class TripDetailsRegistration
- */
-@WebServlet("/flightDetail/*")
 
+@WebServlet("/flightDetail/*")
 public class FlightDetailServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	FlightDetailDao flightDetailDAO;
-	/* FlightScheduleDao flightScheduleDAO; */
+	
 	HttpSession session = null;
 
 
@@ -53,7 +50,7 @@ public class FlightDetailServlet extends HttpServlet {
 			throws ServletException, IOException {
 
 		String requestPath = request.getPathInfo();
-		System.out.println(requestPath);
+		
 		switch(requestPath) 
 		{
 		case "/addFlight":

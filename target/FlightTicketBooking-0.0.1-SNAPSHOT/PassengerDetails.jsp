@@ -14,6 +14,9 @@
 <body>
 	<%@include file="Header.jsp"%>
 	<br>
+	<%Integer noOfPassenger = (Integer) session.getAttribute("TotalPassengers");
+	if(noOfPassenger != null){
+	%>
 	<form method="post" action="">
 
 		<div class="form-group">
@@ -30,7 +33,7 @@
 				</thead>
 				<tbody>
 					<%
-					Integer noOfPassenger = (Integer) session.getAttribute("TotalPassengers");
+					
 
 					for (int loop = 1; loop <= noOfPassenger; loop++) {
 					%>
@@ -73,8 +76,10 @@
 	<jsp:forward page="PaymentSite.jsp"></jsp:forward>
 	<%
 	}
+	}else {
 	%>
-
+<h3> Page Details Not found. Try Again </h3>
+<%} %>
 
 </body>
 </html>

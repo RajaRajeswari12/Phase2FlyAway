@@ -14,17 +14,16 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 <body>
-
+<%@include file="SearchForm.jsp"%>
+	<br>
+	<br>
 	<%
 	List<FlightAvailabilityByDate> availableFlightList = (ArrayList) session.getAttribute("availableFlightList");
 	SearchFlightDetailPojo searchFlightDtl = (SearchFlightDetailPojo) session.getAttribute("searchFlt");
-	//System.out.println(availableFlightList.size());
-	
+	if(availableFlightList != null && searchFlightDtl != null){
 	%>
 
-	<%@include file="SearchForm.jsp"%>
-	<br>
-	<br>
+	
 	<% if(availableFlightList.size() > 0) {%>
 	INSIDE
 	<form method="post" action="">
@@ -59,8 +58,10 @@
 	</form>
 	<%} else{ %>
 <h2> No Flights Available for the search given.</h2>
+<%}
+	}else{ %>
+<h3> Page Details Not found. Try Again </h3>
 <%} %>
-
 
 </body>
 </html>

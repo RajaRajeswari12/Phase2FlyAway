@@ -12,8 +12,11 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 <body>
-	<%@include file="Header.jsp"%>
+	<%@include file="UserMenu.jsp"%>
 	<br>
+	<%Integer noOfPassenger = (Integer) session.getAttribute("TotalPassengers");
+	if(noOfPassenger != null){
+	%>
 	<form method="post" action="">
 
 		<div class="form-group">
@@ -30,7 +33,7 @@
 				</thead>
 				<tbody>
 					<%
-					Integer noOfPassenger = (Integer) session.getAttribute("TotalPassengers");
+					
 
 					for (int loop = 1; loop <= noOfPassenger; loop++) {
 					%>
@@ -64,17 +67,18 @@
 			ps.setAge(Integer.valueOf(request.getParameter("Age" + loop)));
 			ps.setGender(request.getParameter("Gender" + loop));
 			passengerList.add(ps);
-			System.out.println(ps);
 		}
 
 		session.setAttribute("passengerList", passengerList);
-		System.out.println(passengerList + "Outside Loop");
+
 	%>
 	<jsp:forward page="PaymentSite.jsp"></jsp:forward>
 	<%
 	}
+	}else {
 	%>
-
+<h3> Page Details Not found. Try Again </h3>
+<%} %>
 
 </body>
 </html>

@@ -15,9 +15,9 @@
 <link rel="stylesheet" href="mystyle.css">
 </head>
 <body>
-<br>
-<%@include file="subMenu.jsp" %>
-<br>
+
+	<%@include file="AdminMenu.jsp"%>
+	<br>
 <br>
 
 

@@ -61,7 +61,7 @@ public class FlightTicketSearchDao {
 			String availableFlightQuery=" from FlightAvailabilityByDate  fad where fad.flightdetail.flightId in "
 					+ "(select fd.flightId from FlightDetail fd where fd.tripSrcDest.tripId = (select tsd.tripId from TripSourceDestination tsd"
 					+ " where concat(tsd.sourceCityName,' ',tsd.sourceCountry)=:sourceCityName and concat(tsd.destCityName,' ',tsd.destCountry)=:destCityName)) "
-					+ "and fad.travelDate>=:travelDate and fad.noOfTickets>=:noOfTickets";
+					+ "and fad.travelDate=:travelDate and fad.noOfTickets>=:noOfTickets";
 			
 			availableFlightList = session.createQuery(availableFlightQuery).setParameter("sourceCityName", seacrhFlightDetail.getSourceCityName())
 					.setParameter("destCityName",seacrhFlightDetail.getDestinationCityName())
@@ -85,9 +85,6 @@ public class FlightTicketSearchDao {
 			transaction = session.beginTransaction();
 			deductFlightSeat(flightTicket.getFlightNo(),flightTicket.getTravelDate(),flightTicket.getNoOfPassenger());
 			session.save(flightTicket);
-		
-//			session.refresh(flightTicket);
-		System.out.println(flightTicket);
 			transaction.commit();
 			session.close();
 			return flightTicket;

@@ -91,11 +91,11 @@ public class UserRegisterServlet extends HttpServlet {
 		if(userType != null) {
 			if( userType.equals("Admin")) {
 				session.setAttribute("userType", userType);
-				response.sendRedirect(request.getContextPath()+"/subMenu.jsp");
+				response.sendRedirect(request.getContextPath()+"/AdminMenu.jsp");
 			}else  {
 				session.setAttribute("userType", userType);
 				session.setAttribute("userName", userName);
-				response.sendRedirect(request.getContextPath()+"/Header.jsp");
+				response.sendRedirect(request.getContextPath()+"/UserMenu.jsp");
 			}
 		}
 		else {		

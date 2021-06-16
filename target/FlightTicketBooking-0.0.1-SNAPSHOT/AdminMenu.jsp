@@ -28,6 +28,7 @@
 				class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
 				<ul
 					class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
+					<li><a href="RegisterAdminUser.jsp" class="nav-link px-2 text-white">[Register As Admin]</a></li>
 					<li><a href="flightDetail/listFlight" class="nav-link px-2 text-white">[List Flight Details]</a></li>
 					<li><a href="RegisterFlight.jsp" class="nav-link px-2 text-white">[Add New Flight Details]</a></li>
 					<li><a href="PopulateFlightDtl.jsp" class="nav-link px-2 text-white">[Populate FlightDetails by Date]</a></li>

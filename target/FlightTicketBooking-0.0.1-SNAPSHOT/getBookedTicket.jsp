@@ -8,7 +8,7 @@
 </head>
 <body>
 <%@include file="Header.jsp"%>
-<form action="flightTicketSchedule/bookedTicketList" method="post">
+<form action="flightTicketSchedule/bookedTicket" method="post">
 
 <div class="container col-md-8 col-md-offset-3" style="overflow: auto">
 		<h1>Get Ticket Details</h1>

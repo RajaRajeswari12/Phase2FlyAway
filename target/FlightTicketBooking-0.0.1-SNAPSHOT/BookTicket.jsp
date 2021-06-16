@@ -14,8 +14,12 @@
 </head>
 <body>
 <%@include file="Header.jsp"%>
+
+
 	<%
 	FlightAvailabilityByDate choosenFlight = (FlightAvailabilityByDate) session.getAttribute("ChosenFlightDetail");
+	
+	if(choosenFlight != null ){
 	LocalTime departTime = choosenFlight.getFlightdetail().getDepartureTime();
 	LocalTime duration = choosenFlight.getFlightdetail().getTravelDuration();
 	LocalTime total = departTime.plusHours(duration.getHour()).plusMinutes(duration.getMinute());
@@ -96,7 +100,10 @@
 
 
 	</form>
+	<%} else { %>
+		<h3> Page Error. </h3>
 	
+	<%} %>
 	
 </body>
 </html>

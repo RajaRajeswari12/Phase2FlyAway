@@ -24,13 +24,10 @@ public class FlightDetailDao {
 	Transaction transaction = null;
 
 
-
-
 	public void registerFlightDetail(FlightDetail flightDetail) {
 
 		session =HibernateUtil.getSessionFactory().openSession();
 		try {
-
 			transaction = session.beginTransaction();
 			flightDetail = checkFlightDetail(flightDetail);
 			session.save(flightDetail);
@@ -41,7 +38,6 @@ public class FlightDetailDao {
 		{
 			exceptionBlock(e);
 		}
-
 	}
 
 	private FlightDetail checkFlightDetail(FlightDetail flightDetail) {
@@ -142,7 +138,6 @@ public class FlightDetailDao {
 		session = HibernateUtil.getSessionFactory().openSession();
 		try {
 			transaction = session.beginTransaction();
-			//			flightDetail = checkFlightDetail(flightDetail);
 			session.update(flightDetail);
 			transaction.commit();
 			session.close();

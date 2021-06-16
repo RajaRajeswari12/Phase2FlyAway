@@ -67,8 +67,6 @@ public class FlightScheduleServlet extends HttpServlet {
 
 
 	private void deleteListedFlightByTripDate(HttpServletRequest request, HttpServletResponse response) throws IOException {
-//		session = request.getSession(false);
-//		String[] FlightTripIdListString = (String[]) session.getAttribute("FlightTripIdList");
 		
 		String[] FlightTripIdListString = request.getParameterValues("TripScheduleId");
 		List<Integer> FlightTripIdListInt = new ArrayList<>();

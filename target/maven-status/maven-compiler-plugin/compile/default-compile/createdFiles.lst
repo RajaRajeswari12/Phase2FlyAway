@@ -1,12 +1,10 @@
 com\model\TripSourceDestination.class
 com\model\Messages.class
-com\controller\AirlineServlet.class
 com\controller\FlightTicketSearchServlet.class
 com\model\FlightAvailabilityByDate.class
 com\util\HibernateUtil.class
 com\controller\UserRegisterServlet.class
 com\dao\FlightScheduleDao.class
-com\dao\TripDao.class
 com\model\SearchFlightDetailPojo.class
 com\dao\FlightTicketSearchDao.class
 com\model\PassengersDetail.class
@@ -18,5 +16,4 @@ com\controller\FlightDetailServlet.class
 com\controller\FlightScheduleServlet.class
 com\model\FlightDetail.class
 com\dao\FlightDetailDao.class
-com\dao\AirlineDao.class
 com\model\FlightTicket.class

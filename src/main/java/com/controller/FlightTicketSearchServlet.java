@@ -66,7 +66,7 @@ public class FlightTicketSearchServlet extends HttpServlet {
 		session.removeAttribute("flightTicket");
 		FlightTicket getFlightTicketDetail = flightTicketSearchDao.getFlightTicket(ticketNo);
 		session.setAttribute("flightTicket",getFlightTicketDetail);
-		response.sendRedirect(request.getContextPath()+"/Ticket.jsp");
+		response.sendRedirect(request.getContextPath()+"/Ticket.jsp?getTicket=1");
 		
 	}
 

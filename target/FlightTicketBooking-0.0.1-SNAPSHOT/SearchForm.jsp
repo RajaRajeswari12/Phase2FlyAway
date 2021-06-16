@@ -22,14 +22,15 @@
 	<form method="post" action="">
 		<script  language = "Javascript">
 			function CheckDate() {
-				alert("INSIDE")
-				var TravelDate = document.getElementById("TravelDate").value;
+				
+				var TravelDate = document.getElementById("travelDate").value;
+				
 				var ToDate = new Date();
 				var travelDt = new Date(TravelDate);
-
+				
 				if (travelDt.setHours(0, 0, 0, 0) < ToDate.setHours(0, 0, 0, 0)) {
 					alert("The Date must be Greater than (or) Equal to today date");
-					document.getElementById("TravelDate").value = ToDate;
+					document.getElementById("travelDate").value = ToDate;
 					return false;
 				}
 				return true;
