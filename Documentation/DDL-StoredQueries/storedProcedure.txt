@@ -1,0 +1,69 @@
+CREATE DEFINER=`root`@`localhost` PROCEDURE `populateFlightDetailByDate`(in noOfDays int,in givenFromDate date)
+BEGIN
+DECLARE FlightRunningId INT DEFAULT NULL;
+DECLARE Monday tinyint DEFAULT NULL;
+DECLARE Tuesday tinyint DEFAULT NULL;
+DECLARE Wednesday tinyint DEFAULT NULL;
+DECLARE Thursday tinyint DEFAULT NULL;
+DECLARE Friday tinyint DEFAULT NULL;
+DECLARE Saturday tinyint DEFAULT NULL;
+DECLARE Sunday tinyint DEFAULT NULL;
+DECLARE FlightId INT DEFAULT NULL;
+
+DECLARE done TINYINT DEFAULT FALSE;
+Declare dayCount int;
+Declare fromDateToPopulate date;
+DECLARE COLCURSOR cursor for 
+SELECT *
+FROM flightrunningdays;
+
+DECLARE CONTINUE HANDLER FOR NOT FOUND SET done = TRUE;
+ 
+set daycount = 1;
+
+OPEN COLCURSOR;
+	my_loop:
+	LOOP
+	FETCH NEXT FROM COLCURSOR INTO FlightRunningId,FlightId,Monday,Tuesday,Wednesday,Thursday,Friday,Saturday,Sunday;
+	select concat(FlightId,Monday,Tuesday,Wednesday,Thursday,Friday,Saturday,Sunday);
+    SET fromDateToPopulate = givenFromDate;
+	set dayCount = 0; 
+	IF done THEN 
+		LEAVE my_loop;
+	end if;
+
+	while(dayCount <= noOfDays) do
+		if Monday = 1 and weekday(fromDateToPopulate) = 0 THEN
+		INSERT ignore INTO FLIGHTAVAILABILITYBYDATE(flightId,TravelDate,NoOfTickets) values(FlightId,fromDateToPopulate,208) ;
+		END IF;
+		if Tuesday = 1 and weekday(fromDateToPopulate) = 1 THEN
+		INSERT ignore INTO FLIGHTAVAILABILITYBYDATE(flightId,TravelDate,NoOfTickets)  values(FlightId,fromDateToPopulate,208) ;
+		END IF;
+		if Wednesday = 1 and weekday(fromDateToPopulate) = 2 THEN
+		INSERT ignore INTO FLIGHTAVAILABILITYBYDATE(flightId,TravelDate,NoOfTickets)  values(FlightId,fromDateToPopulate,208) ;
+		END IF;
+		if Thursday = 1 and weekday(fromDateToPopulate) = 3 THEN
+		INSERT ignore INTO FLIGHTAVAILABILITYBYDATE(flightId,TravelDate,NoOfTickets)  values(FlightId,fromDateToPopulate,208) ;
+		END IF;
+		if Friday = 1 and weekday(fromDateToPopulate) = 4 THEN
+		INSERT ignore INTO FLIGHTAVAILABILITYBYDATE(flightId,TravelDate,NoOfTickets)  values(FlightId,fromDateToPopulate,208) ;
+		END IF;
+		if Saturday = 1 and weekday(fromDateToPopulate) = 5 THEN
+		INSERT ignore INTO FLIGHTAVAILABILITYBYDATE(flightId,TravelDate,NoOfTickets)  values(FlightId,fromDateToPopulate,208) ;
+		END IF;
+		if Sunday = 1 and weekday(fromDateToPopulate) = 6 THEN
+		INSERT ignore INTO FLIGHTAVAILABILITYBYDATE(flightId,TravelDate,NoOfTickets)  values(FlightId,fromDateToPopulate,208) ;
+		END IF;
+
+		SET fromDateToPopulate = date_add(fromDateToPopulate, interval 1 DAY);
+		set dayCount = dayCount+1; 
+
+	end while;
+END LOOP;
+CLOSE COLCURSOR;
+
+   
+
+END
+
+flightDetail/populateFlightDtl

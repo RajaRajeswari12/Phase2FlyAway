@@ -9,7 +9,7 @@
     <property name="connection.url">jdbc:mysql://localhost:3306/airlineticket</property>
 
     <property name="connection.username">root</property>
-    <property name="connection.password">Jrr12042012@</property>
+    <property name="connection.password">Password@123</property>
 <!--     <property name="connection.pool_size">1</property> -->
     <property name="dialect">org.hibernate.dialect.MySQL8Dialect</property>
     <property name="current_session_context_class">thread</property>
